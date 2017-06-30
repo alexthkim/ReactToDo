@@ -26,7 +26,7 @@ class InputLine extends React.Component {
         <div className="input-group">
           <input type="text" value={this.state.typedText} onChange={(event) => this.handleTyping(event)}className="form-control" placeholder="To Do Item"></input>
           <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button" onClick={() => this.handleSubmit()}>Submit</button>
+            <button className="btn btn-secondary" type="button" onClick={() => this.handleSubmit()}>Add</button>
           </span>
         </div>
       </div>

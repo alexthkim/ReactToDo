@@ -1,10 +1,13 @@
 import React from 'react';
 import InputLine from './InputLine'
 import TodoList from './TodoList'
+import axios form 'axios';
 
 var dummyData = [{ taskText: "Do the dishes", completed: true },
 { taskText: "Read a book", completed: false },
 { taskText: "Eat pasta", completed: false }];
+
+const dbUrl = "http://localhost:3000/db";
 
 class TodoApp extends React.Component {
   constructor(props) {
@@ -19,6 +22,13 @@ class TodoApp extends React.Component {
   }
 
   addTodo(task) {
+    axios.post(/*URL_HERE*/, /*POST_BODY_HERE*/)
+      .then(function (response) {
+        // Do whatever you want with the request's response in here
+      })
+      .catch(function (error) {
+        // Do whatever you want in the event of an error in here
+      });
     dummyData.push({taskText: task, completed: false});
     this.setState({todos: dummyData});
   }
