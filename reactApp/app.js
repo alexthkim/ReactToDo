@@ -1,19 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var dummyData = ["Do the dishes", "Read a book", "Eat pasta"];
+var dummyData = [{ taskText: "Do the dishes", completed: true },
+{ taskText: "Read a book", completed: false },
+{ taskText: "Eat pasta", completed: false }];
+
 
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      todos: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({todos:dummyData});
   }
 
   render() {
     return(
-      <div>
+      <div className= "col-xs-offset-3 col-xs-6 full-container">
         <InputLine/>
-        <TodoList/>
+        <table className="table">
+          <TodoList todos={this.state.todos}/>
+        </table>
       </div>
     )
   }
@@ -26,9 +38,13 @@ class InputLine extends React.Component {
 
   render() {
     return(
-      <div>
-        <input type="text" placeholder="To Do Item"></input>
-        <input type="submit" value="Submit"></input>
+      <div className="row input-container">
+        <div className="input-group">
+          <input type="text" className="form-control" placeholder="To Do Item"></input>
+          <span className="input-group-btn">
+            <button className="btn btn-secondary" type="button">Submit</button>
+          </span>
+        </div>
       </div>
     )
   }
@@ -41,9 +57,9 @@ class TodoList extends React.Component {
 
   render() {
     return(
-      <ul>
-        {dummyData.map((item) => <Todo task={item}/>)}
-      </ul>
+      <tbody>
+        {this.props.todos.map((item) => <Todo task={item.taskText} done={item.completed}/>)}
+      </tbody>
     )
   }
 }
@@ -51,15 +67,26 @@ class TodoList extends React.Component {
 class Todo extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      done: this.props.done
+    }
+    this.checkHandler = this.checkHandler.bind(this);
+  }
+
+  checkHandler() {
+    this.setState({done: !this.state.done})
   }
 
   render() {
     return(
-      <li>
-        {this.props.task}
-        <button>X</button>
-      </li>
-
+      //(this.state.done === true) ?
+        <tr>
+          <td>
+            <div className="checkbox">
+              <label style={this.state.done ? {"textDecoration": "line-through"}:{}}><input type="checkbox"  onChange={() => this.checkHandler()} checked={this.state.done} value=""/>{this.props.task}</label>
+            </div>
+          </td>
+        </tr>
     )
   }
 }

@@ -1,0 +1,10 @@
+
+.full-container {
+  margin-top: 2em;
+  border: solid black 1px;
+  border-radius: 5%;
+}
+
+.input-container {
+  margin: 1em;
+}
