@@ -15,7 +15,7 @@ class InputLine extends React.Component {
 
   handleSubmit() {
     if (this.state.typedText.trim().length !== 0) {
-      this.props.submit(this.state.typedText);
+      this.props.addTodo(this.state.typedText);
       this.setState({typedText: ""});
     }
   }
