@@ -1,13 +1,14 @@
 import express from 'express';
-import ToDoItem from '../models/models'
+//import ToDoItem from '../models/models'
 const router = express.Router();
 
-router.get('/add', (req, res) => {
-  const testTodo = new TodoItem({
-    task: "test task"
+router.post('/add', (req, res) => {
+  const newToDo = new ToDoItem ({
+    task: req.body.task,
+    completed: req.body.completed
   });
 
-  testTodo.save()
+  newTodo.save()
     .then(response => {
       res.send(response);
     })

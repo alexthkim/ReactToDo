@@ -1,7 +1,7 @@
 import React from 'react';
 import Todo from './Todo';
 
-const TodoList =({ todos, handleToggleTodo }) => {
+const TodoList =({ todos, handleToggleTodo, handleRemoveTodo }) => {
   return(
     <tbody>
       {todos.map((item) =>
@@ -10,6 +10,7 @@ const TodoList =({ todos, handleToggleTodo }) => {
           task={item.task}
           completed={item.completed}
           handleOnClick={() => handleToggleTodo(item.id)}
+          handleRemove={() => handleRemoveTodo(item.id)}
         />)}
     </tbody>
   )

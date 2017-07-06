@@ -1,59 +1,16 @@
 import React from 'react';
 import InputLine from './InputLine'
 import TodoList from './TodoList'
-//import axios form 'axios';
+
 import { connect } from 'react-redux';
-import { addTodo } from '../actions/index';
-
-
-// var dummyData = [{ taskText: "Do the dishes", completed: true },
-// { taskText: "Read a book", completed: false },
-// { taskText: "Eat pasta", completed: false }];
-//
-// const dbUrl = "http://localhost:3000/db";
-//
-// class TodoApp extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       todos: []
-//     }
-//   }
-//
-//   componentDidMount() {
-//     this.setState({todos:dummyData});
-//   }
-//
-//   addTodo(task) {
-//     // axios.post(/*URL_HERE*/, /*POST_BODY_HERE*/)
-//     //   .then(function (response) {
-//     //     // Do whatever you want with the request's response in here
-//     //   })
-//     //   .catch(function (error) {
-//     //     // Do whatever you want in the event of an error in here
-//     //   });
-//     dummyData.push({taskText: task, completed: false});
-//     this.setState({todos: dummyData});
-//   }
-//
-//   render() {
-//     return(
-//       <div className= "col-xs-offset-3 col-xs-6 full-container">
-//         <InputLine submit={(task) => this.addTodo(task)}/>
-//         <table className="table">
-//           <TodoList todos={this.state.todos}/>
-//         </table>
-//       </div>
-//     )
-//   }
-// }
+import { addTodo, toggleTodo, removeTodo } from '../actions/index';
 
 let id = 0;
 
-let TodoApp =({todos=[], addTodoClick, toggleTodoClick }) => {
+let TodoApp =({todos=[], addTodoClick, toggleTodoClick, removeTodoClick}) => {
     console.log(addTodoClick);
     return (
-        <div className= "col-xs-offset-3 col-xs-6 full-container">
+        <div className= "col-xs-offset-4 col-xs-4 full-container">
           {/* leave this alone for now */}
           <InputLine
               addTodo={(text) => addTodoClick(id++, text)}
@@ -62,6 +19,7 @@ let TodoApp =({todos=[], addTodoClick, toggleTodoClick }) => {
             <TodoList
               todos={todos}
               handleToggleTodo={(id) => toggleTodoClick(id)}
+              handleRemoveTodo={(id) => removeTodoClick(id)}
             />
           </table>
         </div>
@@ -71,11 +29,12 @@ let TodoApp =({todos=[], addTodoClick, toggleTodoClick }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTodoClick: (id,task) => dispatch(addTodo(id, task)),
+    toggleTodoClick: (id) => dispatch(toggleTodo(id)),
+    removeTodoClick: (id) => dispatch(removeTodo(id))
   };
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     todos: state
   };
